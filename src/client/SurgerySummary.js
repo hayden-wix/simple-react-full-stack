@@ -10,11 +10,13 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import TextField from '@material-ui/core/TextField';
 import DialogActions from '@material-ui/core/DialogActions';
 import Button from '@material-ui/core/Button';
-import PersonName from './PersonName';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import SurgeryDetailsForm from './SurgeryDetailsForm';
+import PrintableInvoice from './Invoice';
 
 const styles = theme => ({
   container: {
@@ -65,21 +67,26 @@ const styles = theme => ({
 class SurgerySummary extends Component {
   state = {
     editSurgeryDialogOpen: false,
+    printSurgeryDialogOpen: false,
   };
 
   componentDidMount() {
   }
 
   handleClickOpen = () => {
-    this.setState({ editSurgeryDialogOpen: true});
+    this.setState({editSurgeryDialogOpen: true});
+  };
+
+  handleClickPrint = () => {
+    this.setState({printSurgeryDialogOpen: true});
   };
 
   handleClose = () => {
-    this.setState({ editSurgeryDialogOpen: false });
+    this.setState({editSurgeryDialogOpen: false, printSurgeryDialogOpen: false});
   };
 
   handleSave = () => {
-    this.setState({ editSurgeryDialogOpen: false });
+    this.setState({editSurgeryDialogOpen: false});
   };
 
   render() {
@@ -92,41 +99,43 @@ class SurgerySummary extends Component {
           {index}
         </Typography>
         <Grid container>
-          <React.Fragment key="speciality">
-            <Grid item xs={6}>
-              <Typography gutterBottom>Speciality</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography gutterBottom>{surgery.speciality}</Typography>
-            </Grid>
-          </React.Fragment>
-          <React.Fragment key="date">
-            <Grid item xs={6}>
-              <Typography gutterBottom>Date</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography gutterBottom>{surgery.date}</Typography>
-            </Grid>
-          </React.Fragment>
-          <React.Fragment key="surgeon">
-            <Grid item xs={6}>
-              <Typography gutterBottom>Surgeon</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <PersonName person={surgery.surgeon}/>
-            </Grid>
-          </React.Fragment>
-          <React.Fragment key="hospital">
-            <Grid item xs={6}>
-              <Typography gutterBottom>Hospital</Typography>
-            </Grid>
-            <Grid item xs={6}>
-              <Typography gutterBottom>{surgery.hospital.name}</Typography>
-            </Grid>
+          <Grid item xs={16} md={12} lg={8}>
+            <List disablePadding>
+              <ListItem className={classes.listItem} key="speciality">
+                <ListItemText primary="Speciality"/>
+                <Typography variant="body2">{surgery.speciality}</Typography>
+              </ListItem>
+              <ListItem className={classes.listItem} key="date">
+                <ListItemText primary="Date"/>
+                <Typography variant="body2">{surgery.date}</Typography>
+              </ListItem>
+              <ListItem className={classes.listItem} key="surgeon">
+                <ListItemText primary="Surgeon"/>
+                <Typography variant="body2">{`${surgery.surgeon.firstName} ${surgery.surgeon.surname}`}</Typography>
+              </ListItem>
+              <ListItem className={classes.listItem} key="hospital">
+                <ListItemText primary="Date"/>
+                <Typography variant="body2">{surgery.hospital.name}</Typography>
+              </ListItem>
+              {surgery.procedures.map(procedure => (
+                <ListItem className={classes.listItem} key={procedure.id}>
+                  <ListItemText primary={procedure.description} secondary={`${procedure.code}  -  ${procedure.note}`}/>
+                  <Typography variant="body2">{`$${procedure.cost}`}</Typography>
+                </ListItem>
+              ))}
+            </List>
+          </Grid>
+          <React.Fragment key="all_buttons">
             <Grid item xs={6}>
               <div>
+                <Fab color="primary" aria-label="edit" className={classes.fab} onClick={this.handleClickPrint}>
+                  <Icon>print</Icon>
+                </Fab>
                 <Fab color="secondary" aria-label="edit" className={classes.fab} onClick={this.handleClickOpen}>
                   <Icon>edit_icon</Icon>
+                </Fab>
+                <Fab color="secondary" aria-label="edit" className={classes.fab} onClick={this.handleClickOpen}>
+                  <Icon>delete</Icon>
                 </Fab>
                 <Dialog
                   disableBackdropClick
@@ -147,6 +156,22 @@ class SurgerySummary extends Component {
                     </Button>
                     <Button onClick={this.handleSave} color="primary">
                       Save
+                    </Button>
+                  </DialogActions>
+                </Dialog>
+                <Dialog
+                  disableBackdropClick
+                  open={this.state.printSurgeryDialogOpen}
+                  onClose={this.handleClose}
+                  aria-labelledby="form-dialog-title"
+                >
+                  <DialogTitle id="form-dialog-title">Invoice details</DialogTitle>
+                  <DialogContent>
+                    <PrintableInvoice surgery={surgery}/>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={this.handleClose} color="primary">
+                      Cancel
                     </Button>
                   </DialogActions>
                 </Dialog>

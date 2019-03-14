@@ -38,7 +38,16 @@ export default class App extends Component {
           hospital: {
             id: 'h1234',
             name: 'Royal Free Hospital'
-          }
+          },
+          procedures: [
+            {
+              id: '001', description: 'Hair removal', cost: '5.34', code: 'HR12345'
+            },
+            {
+              id: '002', description: 'Eyebrow trim', cost: '35.00', code: 'ET123'
+            }
+          ],
+          costOverride: '200'
         },
         {
           date: '2019-02-21',
@@ -50,7 +59,15 @@ export default class App extends Component {
           hospital: {
             id: 'h1234',
             name: 'Royal Free Hospital'
-          }
+          },
+          procedures: [
+            {
+              id: '001', description: 'Hair removal', cost: '5.34', code: 'HR12345', note: 'Complications expected'
+            },
+            {
+              id: '002', description: 'Eyebrow trim', cost: '35.00', code: 'ET123', note: 'Charge per eyebrow'
+            }
+          ]
         }
       ]
 

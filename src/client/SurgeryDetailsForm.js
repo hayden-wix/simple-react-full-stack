@@ -46,18 +46,6 @@ const styles = theme => ({
   },
 });
 
-const surgeryX = {
-  speciality: 'Orthapedics',
-  date: '2019-02-23',
-  surgeon: {
-    firstName: 'Bob',
-    lastName: 'Andrews'
-  },
-  hospital: {
-    id: 'h124324',
-    name: 'Royal Free Hospital'
-  }
-};
 class SurgeryDetailsForm extends Component {
   componentDidMount() {
   }

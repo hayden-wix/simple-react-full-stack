@@ -3,26 +3,27 @@ import './app.css';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-import Paper from './SurgeryDetailsForm';
+import Typography from '@material-ui/core/Typography';
 
 const styles = {};
 
-export class SurgicalProcedure extends Component {
+class SurgicalProcedure extends Component {
   componentDidMount() {
   }
 
   render() {
     const {classes} = this.props;
-    const {surgicalProcedure} = this.props;
+    const {procedure} = this.props;
     return (
       <React.Fragment>
+        <Typography> frff</Typography>
         <Grid container spacing={24} item>
           <Grid item xs={12} md={6} lg={4}>
             <TextField
               required
               id="outlined-disabled"
               label="Description"
-              defaultValue={surgicalProcedure.description}
+              defaultValue={procedure.description}
               margin="normal"
               fullWidth
             />
@@ -32,7 +33,7 @@ export class SurgicalProcedure extends Component {
               required
               id="outlined-disabled"
               label="Code"
-              defaultValue={surgicalProcedure.code}
+              defaultValue={procedure.code}
               margin="normal"
               fullWidth
             />
@@ -42,27 +43,7 @@ export class SurgicalProcedure extends Component {
               required
               id="outlined-disabled"
               label="Cost"
-              defaultValue={surgicalProcedure.cost}
-              margin="normal"
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              required
-              id="outlined-disabled"
-              label="Surgeon Surname"
-              defaultValue={surgery.surgeon.lastName}
-              margin="normal"
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              id="outlined-disabled"
-              label="Hospital"
-              required
-              defaultValue={surgery.hospital.name}
+              defaultValue={procedure.cost}
               margin="normal"
               fullWidth
             />
@@ -73,10 +54,4 @@ export class SurgicalProcedure extends Component {
   }
 }
 
-export class SurgicalProcedureForm extends Component {
-  componentDidMount() {
-  }
-
-
-}
 export default withStyles(styles)(SurgicalProcedure);
