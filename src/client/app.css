@@ -6,3 +6,14 @@ body {
   text-align: center;
   margin: auto;
 }
+
+.person {
+  background-color: yellow;
+  text-align: left;
+}
+
+.addressline {
+  background-color: cyan;
+  text-align: left;
+  margin-left: 10px
+}
