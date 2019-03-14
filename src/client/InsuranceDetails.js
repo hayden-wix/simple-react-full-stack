@@ -58,24 +58,7 @@ class InsuranceDetails extends Component {
     const {classes, insurance} = this.props;
     return (
       <Grid container item spacing={16}>
-        <Grid item xs={12} sm={8} md={4} lg={2}>
-          {/*         <FormControl>
-            <InputLabel htmlFor="insurance-company">Insurance Company</InputLabel>
-            <Select
-              value={this.state.companyId}
-              name="insurance-company"
-              onChange={this.handleChange}
-              input={<Input id="insurance-company"/>}
-            >
-              {allInsurers.map(insurer => (
-                <MenuItem key={insurer.value} value={insurer.value}>
-                  {insurer.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-*/}
-          {' '}
+        <Grid item xs={5} sm={4} md={3} lg={1} >
           <TextField
             id="outlined-select-insurance-company"
             select
